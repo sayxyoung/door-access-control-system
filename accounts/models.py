@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
+
 class UserManager(BaseUserManager):
     def create_user(
         self,
@@ -30,6 +31,7 @@ class UserManager(BaseUserManager):
         user.save(using = self.db)
         return user
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
@@ -40,6 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+
 
 class Generation(models.Model):
     user = models.ForeignKey('accounts.user', on_delete=models.CASCADE, related_name='generations')
