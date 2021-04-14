@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class DoorUseLog(models.Model):
+    user = models.ForeignKey('accounts.user', on_delete=models.CASCADE)
+    generation = models.ForeignKey('accounts.generation', on_delete=models.CASCADE)
+    create_at = models.DateTimeField()
