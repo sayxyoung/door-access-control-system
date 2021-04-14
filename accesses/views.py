@@ -1,4 +1,7 @@
+from django.shortcuts import redirect
+
 from rest_framework             import generics
+from rest_framework.decorators  import api_view
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response    import Response
 from rest_framework.views       import APIView
@@ -48,3 +51,19 @@ class GenerationPublicAV(APIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = GenerationSerializer(generation)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def api_list(request):
+    if request.method == 'GET':
+        api_list = {
+            'ApiList'             : 'api/list',
+            'DoorUseLogList'      : 'api/access',
+            'DoorUseLogListDetail': 'api/access/<str:generation>',
+            'GenerationAdmin'     : 'api/admin',
+            'GenerationPublic'    : 'api/public/<str:generation>',
+        }
+        return Response(api_list)
+    return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+def index(request):
+    return redirect('/api/list')
