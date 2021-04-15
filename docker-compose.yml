@@ -9,7 +9,7 @@ services:
       bash -c "./wait-for-it.sh db:3306 -t 15
       && python manage.py makemigrations
       && python manage.py migrate
-      && mysql -u root -p door_access_control_system < test.sql
+      && ./mysql -u root -p door_access_control_system < test.sql
       && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/usr/src/door_access_control_system/
